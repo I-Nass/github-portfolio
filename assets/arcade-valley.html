@@ -9,7 +9,7 @@
     body {
       margin: 0;
       font-family: 'Press Start 2P', monospace;
-      background: linear-gradient(rgba(0, 0, 0, 0.568)), url('https://i-nass.github.io/github-portfolio/assets/background-img.jpg') no-repeat center center/cover;
+      background: linear-gradient(rgba(0, 0, 0, 0.568)), url('/assets/background-img.jpg') no-repeat center center/cover;
       color: #00ffee;
       display: flex;
       flex-direction: column;
@@ -236,9 +236,16 @@
         gameTitle.textContent = `${currentGame} - Now Playing as ${currentPlayer}`;
     }
 
-    function endGame() {
-        gameArea.style.display = 'none';
-    }
+    function endGame(score) {
+  if (!currentPlayer || !currentGame) return;
+
+  const playerName = currentPlayer || "Anonymous";
+  saveScore(playerName, score);
+  loadScores();
+  gameArea.style.display = 'none';
+  
+
+}
 
     function updateScores() {
         const scoreList = document.getElementById('score-list');
@@ -311,14 +318,14 @@
             let head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
             if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height ||
-                snake.some(segment => segment.x === head.x && segment.y === head.y)) {
-                clearInterval(snakeInterval);
-                alert(`${currentPlayer}, your score for Snake is ${score}`);
-                scores["Snake"].push({ name: currentPlayer, score });
-                updateScores();
-                gameArea.style.display = 'none';
-                return;
-            }
+    snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+    clearInterval(snakeInterval);
+    alert(`${currentPlayer}, your score for Snake is ${score}`);
+    saveScore(currentPlayer, score); // ✅ Save to Firebase
+    loadScores();                   // ✅ Reload leaderboard
+    gameArea.style.display = 'none';
+    return;
+}
 
             snake.unshift(head);
 
@@ -438,8 +445,8 @@
         function gameOver() {
             clearInterval(dropInterval);
             alert(`${currentPlayer}, your score for Tetris is ${score}`);
-            scores["Tetris"].push({ name: currentPlayer, score });
-            updateScores();
+            saveScore(currentPlayer, score);
+            loadScores();
             gameArea.style.display = 'none';
         }
 
@@ -541,8 +548,8 @@
   function endFlappy() {
     gameOverFlag = true;
     alert(`${currentPlayer}, your score for Flappy is ${score}`);
-    scores["Flappy"].push({ name: currentPlayer, score });
-    updateScores();
+    saveScore(currentPlayer, score);
+loadScores();
     gameArea.style.display = "none";
   }
 
@@ -613,8 +620,8 @@
           if (matches === symbols.length) {
             setTimeout(() => {
               alert(`${currentPlayer}, you completed Memory in ${attempts} attempts!`);
-              scores["Memory"].push({ name: currentPlayer, score: 100 - attempts });
-              updateScores();
+              saveScore(currentPlayer, score);
+loadScores();
               gameArea.style.display = "none";
             }, 300);
           }
@@ -724,8 +731,8 @@
 
         function endRunner() {
             alert(`${currentPlayer}, your Runner score is ${score}`);
-            scores["Runner"].push({ name: currentPlayer, score });
-            updateScores();
+            saveScore(currentPlayer, score);
+loadScores();
             gameArea.style.display = 'none';
         }
 
@@ -777,14 +784,14 @@
 
       if (winner) {
         alert(`${currentPlayer} wins!`);
-        scores["TicTacToe"].push({ name: currentPlayer, score: 100 });
-        updateScores();
+        saveScore(currentPlayer, score);
+loadScores();
         gameArea.style.display = 'none';
         gameEnded = true;
       } else if (board.every(cell => cell)) {
         alert(`It's a draw!`);
-        scores["TicTacToe"].push({ name: currentPlayer, score: 50 });
-        updateScores();
+        saveScore(currentPlayer, score);
+loadScores();
         gameArea.style.display = 'none';
         gameEnded = true;
       } else {
@@ -867,8 +874,8 @@
       clearInterval(gameInterval);
       clearInterval(timer);
       alert(`${currentPlayer}, your Whack-a-Mole score is ${score}`);
-      scores['Whack'].push({ name: currentPlayer, score });
-      updateScores();
+      saveScore(currentPlayer, score);
+loadScores();
       gameArea.style.display = 'none';
     }
   }, 1000);
@@ -929,8 +936,8 @@ function initPong() {
     if (ball.x < 0 || ball.x > canvas.width) {
       playing = false;
       alert(`${currentPlayer}, your Pong score is ${score}`);
-      scores['Pong'].push({ name: currentPlayer, score });
-      updateScores();
+      saveScore(currentPlayer, score);
+loadScores();
       gameArea.style.display = 'none';
     }
 
@@ -1108,8 +1115,8 @@ function rotateRight(b) {
     drawBoard();
     if (!board.includes(0) && !canMerge()) {
       alert(`${currentPlayer}, your 2048 score is ${score}`);
-      scores['2048'].push({ name: currentPlayer, score });
-      updateScores();
+      saveScore(currentPlayer, score);
+loadScores();
       gameArea.style.display = 'none';
     }
   }
@@ -1122,8 +1129,8 @@ function rotateRight(b) {
       move(dir);
       if (!board.includes(0) && !canMerge()) {
         alert(`${currentPlayer}, your 2048 score is ${score}`);
-        scores['2048'].push({ name: currentPlayer, score });
-        updateScores();
+        saveScore(currentPlayer, score);
+loadScores();
         gameArea.style.display = 'none';
       }
     }
@@ -1147,5 +1154,98 @@ function rotateRight(b) {
 
 
 </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+  import { getDatabase, ref, push, get, query, orderByChild, limitToLast } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-database.js";
+
+  // ✅ Replace with your actual Firebase config (already done in your script)
+  const firebaseConfig = {
+    apiKey: "AIzaSyB0T3EaI7Iru2lmvwVfBH_ybhYL7IFm15c",
+    authDomain: "arcade-alley-scores.firebaseapp.com",
+    projectId: "arcade-alley-scores",
+    storageBucket: "arcade-alley-scores.firebasestorage.app",
+    messagingSenderId: "910610025310",
+    appId: "1:910610025310:web:e1f7a906bb22b44eef9dcf",
+    measurementId: "G-DS5MX41ZC2",
+    databaseURL: "https://arcade-alley-scores-default-rtdb.firebaseio.com"
+  };
+
+  // ✅ Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // ✅ Save a new score
+  window.saveScore = function(name, score) {
+  if (!currentGame) {
+    console.warn("No game specified for score:", name, score);
+    return;
+  }
+
+  push(ref(db, "highscores/"), {
+    name: name,
+    score: score,
+    game: currentGame,
+    timestamp: Date.now()
+  });
+}
+
+
+  // ✅ Load top 10 scores
+  window.loadScores = async function() {
+  try {
+    const scoresRef = query(ref(db, "highscores"), limitToLast(100));
+    const snapshot = await get(scoresRef);
+
+    const scoreList = document.getElementById("score-list");
+    scoreList.innerHTML = "";
+
+    if (!snapshot.exists()) {
+      scoreList.innerHTML = "<li>No scores yet</li>";
+      return;
+    }
+
+    const grouped = {};
+
+    snapshot.forEach(child => {
+      const data = child.val();
+      if (!data.game || typeof data.score !== "number") return;
+      if (!grouped[data.game]) grouped[data.game] = [];
+      grouped[data.game].push(data);
+    });
+
+    Object.entries(grouped).forEach(([game, entries]) => {
+      const gameHeader = document.createElement("li");
+      gameHeader.textContent = `${game}:`;
+      gameHeader.style.color = "#ff00cc";
+      gameHeader.style.marginTop = "10px";
+      scoreList.appendChild(gameHeader);
+
+      entries
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3)
+        .forEach((score, index) => {
+          const li = document.createElement("li");
+          li.textContent = `${index + 1}. ${score.name}: ${score.score}`;
+          scoreList.appendChild(li);
+        });
+    });
+
+  } catch (error) {
+    console.error("Error loading scores:", error);
+    document.getElementById("score-list").innerHTML = "<li>Error loading scores</li>";
+  }
+};
+
+
+
+
+  // Automatically load scores on page load
+  window.addEventListener("DOMContentLoaded", () => {
+  loadScores();
+});
+
+</script>
+
 </body>
 </html>
