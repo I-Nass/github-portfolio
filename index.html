@@ -32,11 +32,10 @@
     Welcome to my Portfolio, 
     Or as I like to call it " Template with my name slapped on it :)"
 
-  -->
-
-  <!--
-
-    Also  huge thanks to the Dev that made this template (DevFolio) 
+    *Note*
+     I make all my projects from scratch,
+     but this was a rare case , the template was amazing,
+     so huge thanks to the Dev that made this template (DevFolio) 
      you  did 88% of the heavy lifting :)
 
    -->
@@ -268,6 +267,8 @@
 
           </div>
 
+          <!-- I will update once i gain more exp :) -->
+
           <!-- <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <h3 class="resume-title">Professional Experience</h3>
             <div class="resume-item">
@@ -495,7 +496,7 @@
         <div class="portfolio-info">
           <h4>Client PortFolio</h4>
           <p>A personalized portfolio website designed for a creative client to highlight her brand, professional background, featured projects, and aspirations.</p>
-          <a href="https://lilly-awino.netlify.app/" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+          <a href="https://lilly-awino.netlify.app/" title="More Details" class="details-link"><i class="bi bi-link-45deg" target="_blank" rel="noopener noreferrer"></i></a>
         </div>
       </div><!-- End Portfolio Item -->
       
@@ -894,9 +895,9 @@
         <p>© <span>Copyright</span> <strong class="px-1 sitename">Ian Nassiuma</strong> <span>All Rights Reserved</span></p>
       </div>
          <div class="social-links d-flex justify-content-center mb-2">
-         <a href="https://github.com/I-Nass"><i class="bi bi-github"></i></a>
-         <a href="https://www.linkedin.com/in/ian-nassiuma-3189a5359/"><i class="bi bi-linkedin"></i></a>
-         <a href="https://wa.me/254793688832"><i class="bi bi-whatsapp"></i></a>
+         <a href="https://github.com/I-Nass"><i class="bi bi-github" target="_blank" rel="noopener noreferrer"></i></a>
+         <a href="https://www.linkedin.com/in/ian-nassiuma-3189a5359/" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+         <a href="https://wa.me/254793688832"><i class="bi bi-whatsapp" target="_blank" rel="noopener noreferrer"></i></a>
          </div>
       </div>
       <div class="credits">
@@ -914,7 +915,7 @@
 <!-- Magic Word Modal -->
 <div id="magic-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; justify-content:center; align-items:center;">
   <div style="background:white; padding:20px; border-radius:10px; text-align:center; max-width:300px; width:90%;">
-    <h5 style="color: black; font-family: 'Times New Roman', Times, serif;">Congratulations, you've found the Easter egg!<br> Now , Enter the magic word </h5>
+    <h5 style="color: black; font-family: 'Times New Roman', Times, serif;">Congratulations, You've found the first Easter egg!<br> Now enter the magic word </h5>
     <input type="text" id="magic-input" placeholder="..." style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px;">
     <div id="clue" style="font-size: 0.9em; color: #666;">
       Clue: Tafadhali (Swahili), Por favor (Spanish), S'il vous plaît (French), Bitte (German)
@@ -955,6 +956,7 @@
     document.getElementById('magic-modal').style.display = 'flex';
     document.getElementById('magic-input').value = '';
     document.getElementById('magic-input').focus();
+    document.getElementById('clue').style.display = 'none';
   }
 
   function closeMagicModal() {
@@ -962,11 +964,13 @@
   }
 
   function submitMagicWord() {
+    const clue = document.getElementById('clue');
     const word = document.getElementById('magic-input').value.trim().toLowerCase();
     if (word === 'please') {
       window.location.href = 'https://i-nass.github.io/github-portfolio/assets/arcade-valley.html';
     } else {
       alert('Hmm... not quite right. Hint: try saying it politely.');
+      clue.style.display = 'block';
     }
   }
 
