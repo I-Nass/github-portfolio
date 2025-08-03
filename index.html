@@ -100,7 +100,8 @@
 
             <div class="row justify-content-between gy-4">
               <div class="col-lg-5">
-                <img src="images/avataaars.png" class="img-fluid" alt="">
+                <img id="avatar-img" src="images/avataaars.png" class="img-fluid" alt="">
+                <video id="avatar-video" muted src="./assets/Avataar2.mp4" class="img-fluid" style="display: none;"></video>
               </div>
               <div class="col-lg-7 about-info">
                 <p><strong>Name: </strong> <span>Ian Nassiuma</span></p>
@@ -974,6 +975,32 @@
 </style>
 
 <script>
+//avatar
+const img = document.getElementById("avatar-img");
+  const video = document.getElementById("avatar-video");
+
+  function showImage(duration, next) {
+    video.style.display = "none";
+    img.style.display = "block";
+    setTimeout(next, duration);
+  }
+
+  function showVideo() {
+    img.style.display = "none";
+    video.style.display = "block";
+    video.currentTime = 0;
+    video.play();
+    video.style.backgroundColor="white"
+
+    video.onended = () => {
+      showImage(20000, showVideo);
+    };
+  }
+
+  
+  showImage(3000, showVideo);  
+  
+  //Egg
   function openMagicModal() {
     document.getElementById('magic-modal').style.display = 'flex';
     document.getElementById('magic-input').value = '';
