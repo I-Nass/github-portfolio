@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arcade Alley</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
@@ -132,10 +133,351 @@
     .popup button:hover {
       background: #00ccaa;
     }
+
+    /* ─── RETURN NAVIGATION & RETRO BUTTONS ─── */
+    .top-nav-bar {
+      width: 90%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 20px;
+    }
+
+    .portfolio-back-btn {
+      color: #00ffee;
+      border: 1.5px solid #00ffee;
+      background: rgba(0, 255, 238, 0.08);
+      padding: 8px 14px;
+      font-size: 10px;
+      font-family: 'Press Start 2P', monospace;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .portfolio-back-btn:hover {
+      background: #00ffee;
+      color: #000;
+      box-shadow: 0 0 10px #00ffee;
+    }
+
+    #game-area button {
+      background: #00ffee;
+      border: none;
+      padding: 10px 20px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+      color: #000;
+    }
+
+    #game-area button:hover {
+      background: #00ccaa;
+    }
+
+    /* Desktop hides virtual touch gamepad */
+    @media (min-width: 769px) {
+      .virtual-controls {
+        display: none !important;
+      }
+    }
+
+    /* ─── ENHANCED CLASSIC FOR MOBILE VIEW ALONE (<= 768px) ─── */
+    @media (max-width: 768px) {
+      body {
+        padding: 8px 4px;
+        overflow-x: hidden;
+      }
+
+      .top-nav-bar {
+        width: 96%;
+        max-width: 480px;
+        margin-top: 10px;
+      }
+
+      .portfolio-back-btn {
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+
+      h1 {
+        font-size: 14px;
+        margin: 12px 0 8px 0;
+        line-height: 1.3;
+      }
+
+      /* All 9 games visible simultaneously on mobile screen */
+      .game-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        padding: 6px 2px;
+        width: 96%;
+        max-width: 480px;
+        box-sizing: border-box;
+      }
+
+      .game-tile {
+        padding: 10px 2px;
+        font-size: 7.5px;
+        min-height: 44px;
+        border-radius: 8px;
+        border-width: 1.5px;
+        line-height: 1.3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+        word-break: break-word;
+      }
+
+      /* Game Area responsive container */
+      #game-area {
+        margin-top: 14px;
+        width: 96%;
+        max-width: 480px;
+        padding: 12px 6px;
+        border-radius: 8px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      #game-title {
+        font-size: 9.5px;
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+
+      #game-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      /* Responsive canvas scaling to fit all mobile screens (320px - 768px) */
+      #game-container canvas {
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: 46vh !important;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+        border-radius: 6px;
+      }
+
+      /* Responsive DOM Grid Games (Memory, TicTacToe, Whack, 2048) */
+      #memoryGame {
+        max-width: 260px !important;
+        gap: 6px !important;
+      }
+
+      #memoryGame button {
+        width: 56px !important;
+        height: 56px !important;
+        font-size: 20px !important;
+      }
+
+      #ticTacToeBoard {
+        max-width: 240px !important;
+        gap: 8px !important;
+      }
+
+      #ticTacToeBoard button {
+        width: 70px !important;
+        height: 70px !important;
+        font-size: 22px !important;
+      }
+
+      #whackBoard {
+        max-width: 240px !important;
+        gap: 8px !important;
+      }
+
+      #whackBoard button {
+        width: 70px !important;
+        height: 70px !important;
+        font-size: 26px !important;
+      }
+
+      #game2048 {
+        max-width: 260px !important;
+        gap: 6px !important;
+      }
+
+      #game2048 div {
+        width: 56px !important;
+        height: 56px !important;
+        font-size: 16px !important;
+      }
+
+      /* Mobile Virtual Gamepad Controls */
+      .virtual-controls {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        max-width: 320px;
+        margin: 10px auto 4px auto;
+        padding: 6px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px dashed rgba(0, 255, 238, 0.3);
+        border-radius: 10px;
+        user-select: none;
+        -webkit-user-select: none;
+        box-sizing: border-box;
+      }
+
+      .v-dpad {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+      }
+
+      .v-dpad-row {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+
+      .v-dpad-core {
+        width: 38px;
+        height: 38px;
+      }
+
+      .v-btn {
+        width: 44px;
+        height: 44px;
+        background: #111122;
+        border: 1.5px solid #00ffee;
+        border-radius: 8px;
+        color: #00ffee;
+        font-size: 15px;
+        font-family: monospace;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .v-btn:active {
+        background: #00ffee;
+        color: #000;
+      }
+
+      .v-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .v-act-btn {
+        width: 58px;
+        height: 52px;
+        font-size: 15px;
+        flex-direction: column;
+        border-color: #ff00cc;
+        color: #ff00cc;
+      }
+
+      .v-act-btn span {
+        font-size: 7px;
+        font-family: 'Press Start 2P', monospace;
+      }
+
+      .v-act-btn:active {
+        background: #ff00cc;
+        color: #000;
+      }
+
+      #game-area button {
+        padding: 8px 16px;
+        font-size: 9.5px;
+        margin-top: 8px;
+      }
+
+      /* Scoreboard positioned just below the exit button on mobile */
+      #scoreboard {
+        margin-top: 14px;
+        margin-bottom: 30px;
+        width: 96%;
+        max-width: 480px;
+        padding: 12px 10px;
+        border-radius: 8px;
+        box-sizing: border-box;
+      }
+
+      #scoreboard h2 {
+        font-size: 11px;
+        margin-bottom: 8px;
+        text-align: center;
+      }
+
+      #score-list {
+        font-size: 9.5px;
+        line-height: 1.6;
+        max-height: 250px;
+        overflow-y: auto;
+        padding: 0 4px;
+      }
+
+      #score-list::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      #score-list::-webkit-scrollbar-thumb {
+        background: #00ffee;
+        border-radius: 3px;
+      }
+
+      #score-list::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.4);
+      }
+
+      .popup {
+        width: 88%;
+        max-width: 320px;
+        padding: 16px 12px;
+        box-sizing: border-box;
+      }
+
+      .popup h3 {
+        font-size: 11px;
+        line-height: 1.4;
+      }
+
+      .popup input {
+        font-size: 10px;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+
+      .popup button {
+        font-size: 10px;
+        padding: 8px 16px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .game-tile {
+        font-size: 6.8px;
+        padding: 8px 1px;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <div class="top-nav-bar">
+    <a href="../index.html" class="portfolio-back-btn">← Portfolio</a>
+  </div>
   <h1>🎮 Arcade Alley 🎮</h1>
   <div class="game-grid" id="game-selection">
     <div class="game-tile" data-game="Snake">🐍 Snake</div>
@@ -151,6 +493,24 @@
   <div id="game-area">
     <h2 id="game-title">Game Area</h2>
     <div id="game-container"></div>
+    <!-- Mobile Virtual Controls (Hidden on Desktop) -->
+    <div id="virtual-controls" class="virtual-controls" style="display:none;">
+      <div class="v-dpad">
+        <button type="button" class="v-btn" data-key="ArrowUp">▲</button>
+        <div class="v-dpad-row">
+          <button type="button" class="v-btn" data-key="ArrowLeft">◄</button>
+          <div class="v-dpad-core"></div>
+          <button type="button" class="v-btn" data-key="ArrowRight">►</button>
+        </div>
+        <button type="button" class="v-btn" data-key="ArrowDown">▼</button>
+      </div>
+      <div class="v-actions" id="v-actions" style="display:none;">
+        <button type="button" class="v-btn v-act-btn" id="vbtn-rotate"
+          data-key="ArrowUp">🔄<br><span>ROTATE</span></button>
+        <button type="button" class="v-btn v-act-btn" id="vbtn-drop"
+          data-key="ArrowDown">⚡<br><span>DROP</span></button>
+      </div>
+    </div>
     <button onclick="endGame()">End Game</button>
   </div>
   <div id="scoreboard">
@@ -192,6 +552,10 @@
       document.onkeydown = null;
       document.onkeyup = null;
       document.onmousemove = null;
+
+      // Hide virtual touch controls on game stop
+      const vControls = document.getElementById('virtual-controls');
+      if (vControls) vControls.style.display = 'none';
     }
     // ──────────────────────────────────────────────────────────────────────────
 
@@ -199,9 +563,48 @@
     document.querySelectorAll('.game-tile').forEach(tile => {
       tile.addEventListener('click', () => {
         currentGame = tile.dataset.game;
+        const nameInput = document.getElementById('playerNameInput');
+        if (currentPlayer && nameInput) {
+          nameInput.value = currentPlayer;
+        }
         namePopup.style.display = 'flex';
+        if (nameInput) nameInput.focus();
       });
     });
+
+    const nameInputEl = document.getElementById('playerNameInput');
+    if (nameInputEl) {
+      nameInputEl.addEventListener('keydown', e => {
+        if (e.key === 'Enter') startGame();
+      });
+    }
+
+    // ─── Virtual Touch Gamepad Key Dispatcher ─────────────────────────────────
+    function handleVirtualKey(keyName, event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const fakeEvent = {
+        key: keyName,
+        code: keyName,
+        preventDefault: () => { }
+      };
+      if (typeof activeHandles.keyHandler === 'function') {
+        activeHandles.keyHandler(fakeEvent);
+      }
+      if (typeof document.onkeydown === 'function') {
+        document.onkeydown(fakeEvent);
+      }
+    }
+
+    document.querySelectorAll('.v-btn').forEach(btn => {
+      const key = btn.dataset.key;
+      if (!key) return;
+      btn.addEventListener('touchstart', e => handleVirtualKey(key, e), { passive: false });
+      btn.addEventListener('mousedown', e => handleVirtualKey(key, e));
+    });
+    // ──────────────────────────────────────────────────────────────────────────
 
     function startGame() {
       currentPlayer = document.getElementById('playerNameInput').value.trim();
@@ -215,6 +618,29 @@
 
       namePopup.style.display = 'none';
       gameArea.style.display = 'block';
+
+      // Virtual touch controls visibility configuration
+      const vControls = document.getElementById('virtual-controls');
+      const vActions = document.getElementById('v-actions');
+      if (vControls) {
+        if (currentGame === 'Snake' || currentGame === '2048') {
+          vControls.style.display = 'flex';
+          if (vActions) vActions.style.display = 'none';
+        } else if (currentGame === 'Tetris') {
+          vControls.style.display = 'flex';
+          if (vActions) vActions.style.display = 'flex';
+        } else {
+          vControls.style.display = 'none';
+        }
+      }
+
+      // Smooth scroll to game area on mobile screens
+      gameArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      // Refresh scores display so current game targets are prioritized at top
+      if (typeof window.loadScores === 'function') {
+        window.loadScores();
+      }
 
       const container = document.getElementById('game-container');
       container.innerHTML = '';
@@ -266,6 +692,9 @@
     function endGame() {
       stopActiveGame();
       gameArea.style.display = 'none';
+      if (typeof window.loadScores === 'function') {
+        window.loadScores();
+      }
     }
 
     function updateScores() {
@@ -305,6 +734,27 @@
       // G-04: register handler so stopActiveGame() can remove it
       activeHandles.keyHandler = direction;
       document.addEventListener('keydown', direction);
+
+      // Touch swipe support for mobile
+      let touchStartX = 0, touchStartY = 0;
+      canvas.addEventListener('touchstart', e => {
+        if (!e.touches || !e.touches[0]) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      canvas.addEventListener('touchend', e => {
+        if (!e.changedTouches || !e.changedTouches[0]) return;
+        const diffX = e.changedTouches[0].clientX - touchStartX;
+        const diffY = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(diffX) < 20 && Math.abs(diffY) < 20) return;
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX > 0) direction({ key: 'ArrowRight', preventDefault: () => { } });
+          else direction({ key: 'ArrowLeft', preventDefault: () => { } });
+        } else {
+          if (diffY > 0) direction({ key: 'ArrowDown', preventDefault: () => { } });
+          else direction({ key: 'ArrowUp', preventDefault: () => { } });
+        }
+      }, { passive: true });
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -482,6 +932,31 @@
         else if (e.key === 'ArrowDown') { drop(); }
         else if (e.key === 'ArrowUp') { rotate(); drawBoard(); }
       };
+
+      // Touch swipe & tap controls for mobile Tetris
+      let touchStartX = 0, touchStartY = 0;
+      canvas.addEventListener('touchstart', e => {
+        if (!e.touches || !e.touches[0]) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      canvas.addEventListener('touchend', e => {
+        if (!e.changedTouches || !e.changedTouches[0]) return;
+        const diffX = e.changedTouches[0].clientX - touchStartX;
+        const diffY = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(diffX) < 15 && Math.abs(diffY) < 15) {
+          rotate();
+          drawBoard();
+          return;
+        }
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX > 0) move(1); else move(-1);
+          drawBoard();
+        } else {
+          if (diffY > 0) drop();
+          else { rotate(); drawBoard(); }
+        }
+      }, { passive: true });
 
       newPiece();
       drawBoard();
@@ -1091,11 +1566,25 @@
 
       let keysPressed = {};
 
-      document.onmousemove = e => {
+      function updatePaddleFromClientY(clientY) {
         const rect = canvas.getBoundingClientRect();
-        playerY = e.clientY - rect.top - paddleHeight / 2;
+        const scaleY = canvas.height / (rect.height || canvas.height);
+        playerY = (clientY - rect.top) * scaleY - paddleHeight / 2;
         clampPlayer();
+      }
+
+      document.onmousemove = e => {
+        updatePaddleFromClientY(e.clientY);
       };
+
+      function handleTouchPaddle(e) {
+        if (!e.touches || !e.touches[0]) return;
+        e.preventDefault();
+        updatePaddleFromClientY(e.touches[0].clientY);
+      }
+
+      canvas.addEventListener('touchmove', handleTouchPaddle, { passive: false });
+      canvas.addEventListener('touchstart', handleTouchPaddle, { passive: false });
 
       document.onkeydown = e => {
         if (['ArrowUp', 'ArrowDown', 'w', 's'].includes(e.key)) e.preventDefault();
@@ -1271,14 +1760,28 @@
           e.preventDefault(); // G-02: prevent page scroll
           const dir = e.key.replace('Arrow', '').toLowerCase();
           move(dir);
-          if (!board.includes(0) && !canMerge()) {
-            alert(`${currentPlayer}, your 2048 score is ${score}`);
-            saveScore(currentPlayer, score);
-            loadScores();
-            gameArea.style.display = 'none';
-          }
         }
       };
+
+      // Touch swipe support for mobile 2048
+      let touchStartX = 0, touchStartY = 0;
+      container.addEventListener('touchstart', e => {
+        if (!e.touches || !e.touches[0]) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      container.addEventListener('touchend', e => {
+        if (!e.changedTouches || !e.changedTouches[0]) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) < 25 && Math.abs(dy) < 25) return;
+        if (Math.abs(dx) > Math.abs(dy)) {
+          if (dx > 0) move('right'); else move('left');
+        } else {
+          if (dy > 0) move('down'); else move('up');
+        }
+      }, { passive: true });
 
       function canMerge() {
         for (let i = 0; i < 16; i++) {
@@ -1362,10 +1865,18 @@
           grouped[data.game].push(data);
         });
 
-        Object.entries(grouped).forEach(([game, entries]) => {
+        // Sort games so currentGame appears first if set
+        const sortedGames = Object.entries(grouped).sort(([a], [b]) => {
+          if (currentGame && a.toLowerCase() === currentGame.toLowerCase()) return -1;
+          if (currentGame && b.toLowerCase() === currentGame.toLowerCase()) return 1;
+          return a.localeCompare(b);
+        });
+
+        sortedGames.forEach(([game, entries]) => {
+          const isCurrent = currentGame && game.toLowerCase() === currentGame.toLowerCase();
           const gameHeader = document.createElement("li");
-          gameHeader.textContent = `${game}:`;
-          gameHeader.style.color = "#ff00cc";
+          gameHeader.textContent = isCurrent ? `▶ ${game} (Current Target):` : `${game}:`;
+          gameHeader.style.color = isCurrent ? "#00ffee" : "#ff00cc";
           gameHeader.style.marginTop = "10px";
           scoreList.appendChild(gameHeader);
 
@@ -1375,6 +1886,7 @@
             .forEach((score, index) => {
               const li = document.createElement("li");
               li.textContent = `${index + 1}. ${score.name}: ${score.score}`;
+              if (isCurrent) li.style.color = "#ffff88";
               scoreList.appendChild(li);
             });
         });
@@ -1385,13 +1897,13 @@
       }
     };
 
-
-
-
     // Automatically load scores on page load
     window.addEventListener("DOMContentLoaded", () => {
       loadScores();
     });
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      loadScores();
+    }
 
   </script>
 
