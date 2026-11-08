@@ -72,8 +72,8 @@
       }
     };
     window.addEventListener('load', removePreloader);
-    // Safety fallback: dismiss preloader within 1.5s so slow network requests never trap the user
-    setTimeout(removePreloader, 1500);
+    // Safety fallback: ensure preloader dismisses within 2.5s while giving hero image ample paint time
+    setTimeout(removePreloader, 2500);
   }
 
   /**
