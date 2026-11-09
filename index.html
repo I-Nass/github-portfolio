@@ -96,7 +96,7 @@
                 <div class="avatar-container position-relative">
                   <img id="avatar-img" src="images/avataaars.png" class="img-fluid avatar-media"
                     alt="Ian Nassiuma Avatar">
-                  <video id="avatar-video" muted playsinline preload="auto" src="assets/Avataar2.mp4"
+                  <video id="avatar-video" muted playsinline preload="metadata" src="assets/Avataar2.mp4"
                     class="img-fluid avatar-media position-absolute top-0 start-0 w-100 h-100"></video>
                 </div>
               </div>
@@ -1036,6 +1036,25 @@
         max-width: 250px;
         border-radius: 16px;
         overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .avatar-container:hover {
+        transform: scale(1.02);
+      }
+
+      /* Seamless pure white top-left cover masking the DomoAI watermark on Hoodie-anim.mp4 */
+      .avatar-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 24%;
+        height: 14%;
+        background: #ffffff;
+        z-index: 4;
+        pointer-events: none;
       }
 
       .avatar-media {
@@ -1097,36 +1116,78 @@
     </style>
 
     <script>
-      // Avatar smooth crossfade
-      const img = document.getElementById("avatar-img");
-      const video = document.getElementById("avatar-video");
+      // ─── Avatar Crossfade & Interactive Easter Egg ──────────────────────────
+      const avatarImg = document.getElementById("avatar-img");
+      const avatarVideo = document.getElementById("avatar-video");
+      const avatarContainer = document.querySelector(".avatar-container");
 
-      function playAvatarCycle() {
-        if (!video || !img) return;
-        video.currentTime = 0;
-        const playPromise = video.play();
+      const CLIP_WAVE = "assets/Avataar2.mp4";
+      const CLIP_HOODIE = "assets/Hoodie-anim.mp4";
+
+      let isPlaying = false;
+      let nextCycleTimer = null;
+      let easterEggSeen = false;
+
+      function playAvatarClip(src, onFinished) {
+        if (!avatarVideo || !avatarImg) return;
+        isPlaying = true;
+        clearTimeout(nextCycleTimer);
+
+        if (!avatarVideo.src.endsWith(src)) {
+          avatarVideo.src = src;
+          avatarVideo.load();
+        }
+
+        avatarVideo.currentTime = 0;
+        const playPromise = avatarVideo.play();
 
         if (playPromise !== undefined) {
           playPromise.then(() => {
-            // Crossfade to video once playback actually begins
-            video.style.opacity = "1";
-            img.style.opacity = "0";
+            avatarVideo.style.opacity = "1";
+            avatarImg.style.opacity = "0";
           }).catch(err => {
-            console.warn("Avatar video autoplay prevented:", err);
+            isPlaying = false;
+            console.warn("Avatar video playback prevented:", err);
+            if (onFinished) onFinished();
           });
         }
 
-        video.onended = () => {
-          // Crossfade back to static illustration
-          video.style.opacity = "0";
-          img.style.opacity = "1";
-          // Wait 15 seconds before playing again
-          setTimeout(playAvatarCycle, 15000);
+        avatarVideo.onended = () => {
+          avatarVideo.style.opacity = "0";
+          avatarImg.style.opacity = "1";
+          isPlaying = false;
+          if (onFinished) onFinished();
         };
       }
 
-      // Initial delay before first animation
-      setTimeout(playAvatarCycle, 2500);
+      function scheduleGentleWave() {
+        clearTimeout(nextCycleTimer);
+        // Wait 20 seconds before gently waving again in the background
+        nextCycleTimer = setTimeout(() => {
+          playAvatarClip(CLIP_WAVE, scheduleGentleWave);
+        }, 20000);
+      }
+
+      // Initial Welcome Wave (fires ~2.5s after initial page load)
+      setTimeout(() => {
+        playAvatarClip(CLIP_WAVE, scheduleGentleWave);
+      }, 2500);
+
+      // ─── OPTION B: First-Hover (Desktop) / First-Tap (Mobile) Easter Egg ───
+      function triggerAvatarEasterEgg() {
+        if (easterEggSeen) return;
+        easterEggSeen = true;
+
+        // Interrupt whatever is playing/resting and immediately fire the cyber hoodie!
+        playAvatarClip(CLIP_HOODIE, scheduleGentleWave);
+      }
+
+      if (avatarContainer) {
+        // Desktop: fires on first mouse hover
+        avatarContainer.addEventListener("mouseenter", triggerAvatarEasterEgg);
+        // Mobile (Android / iOS): fires on first tap / click
+        avatarContainer.addEventListener("click", triggerAvatarEasterEgg);
+      }
 
       function openMagicModal() {
         document.getElementById('magic-modal').style.display = 'flex';
