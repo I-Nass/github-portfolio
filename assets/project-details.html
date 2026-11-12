@@ -1,79 +1,831 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects Coming Soon</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>In-Depth Project Details // Ian Nassiuma</title>
+  <meta name="description"
+    content="In-depth project details covering full-stack architecture, problem statements, and technical implementations by Ian Nassiuma.">
+
+  <!-- Favicons -->
+  <link href="../images/favicon..png" rel="icon">
+  <link href="../images/favicon..png" rel="developer">
+
+  <!-- Google Fonts matching index.html: Poppins, Raleway, Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/bootstrap-icons.css" rel="stylesheet">
+  <link href="../css/aos.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../css/main.css" rel="stylesheet">
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif;
+    /* Section Sub-headings with DevFolio Blue Accent Underline */
+    .section-title-sub {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--heading-color, #0a090f);
+      margin-top: 1.5rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 12px;
+      position: relative;
     }
 
-    body, html {
-      height: 100%;
-      overflow: hidden;
-      color: #00fff7;
-      
-    }
-
-    video.bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      
-    }
-
-    .content {
+    .section-title-sub::after {
+      content: "";
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      max-width: 90%;
-      padding: 2em;
-      background: rgba(0, 0, 0, 0.6);
-      border: 2px solid #ff00c8;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #ff00c8;
+      display: block;
+      width: 45px;
+      height: 3px;
+      background: var(--accent-color, #0078ff);
+      left: 0;
+      bottom: 0;
     }
 
-    .title {
-      font-size: 3em;
-      margin-bottom: 0.5em;
-      color: #ff00c8;
+    /* Projects Directory Grid Cards */
+    .projects-grid-section {
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 2.25rem 0 2rem 0;
     }
 
-    .caption {
-      font-size: 1.25em;
-      line-height: 1.6em;
-      color: #00fff7;
+    .grid-header-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #0a090f;
+      margin-bottom: 0.35rem;
+    }
+
+    .grid-header-desc {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-card-item {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1.15rem 1.25rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      min-height: 110px;
+      touch-action: manipulation;
+    }
+
+    .project-card-item:hover {
+      border-color: #0078ff;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0, 120, 255, 0.12);
+    }
+
+    .project-card-item.active {
+      border-color: #0078ff;
+      background: #f0f7ff;
+      box-shadow: 0 6px 20px rgba(0, 120, 255, 0.18);
+      position: relative;
+    }
+
+    .project-card-item.active::after {
+      content: "ACTIVE VIEW";
+      position: absolute;
+      top: -10px;
+      right: 12px;
+      background: #0078ff;
+      color: #ffffff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.65rem;
+    }
+
+    .card-icon {
+      font-size: 1.4rem;
+      color: #0078ff;
+    }
+
+    .card-project-title {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0a090f;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-project-sub {
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.4;
+      margin-bottom: 0;
+    }
+
+    /* Project Hero Screenshot Frame */
+    .project-hero-card {
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      margin-bottom: 1.5rem;
+    }
+
+    .project-hero-card img {
+      width: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.25s ease;
+    }
+
+    /* Instant Demo Credentials Alert Banner */
+    .demo-credentials-banner {
+      background: #f0f7ff;
+      border-left: 4px solid #0078ff;
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .demo-cred-info {
+      font-size: 0.9rem;
+      color: #1e293b;
+    }
+
+    .demo-cred-btn {
+      background: #0078ff;
+      color: #ffffff;
+      border: none;
+      padding: 0.4rem 0.95rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: 0.2s;
+      min-height: 36px;
+      touch-action: manipulation;
+    }
+
+    .demo-cred-btn:hover {
+      background: #0056b3;
+    }
+
+    /* Key Responsibilities Bullet List */
+    .responsibilities-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .responsibilities-list li {
+      position: relative;
+      padding-left: 26px;
+      font-size: 0.96rem;
+      color: #4b5563;
+      line-height: 1.65;
+    }
+
+    .responsibilities-list li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #0078ff;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    /* Tech Stack Card Grid */
+    .stack-grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stack-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      transition: 0.2s ease;
+    }
+
+    .stack-box:hover {
+      border-color: #0078ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 120, 255, 0.08);
+    }
+
+    .stack-box-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #0078ff;
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .stack-pill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .badge-stack-item {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+    }
+
+
+
+    /* Toast Notification */
+    #copy-toast-bubble {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0d1117;
+      border: 1px solid #0078ff;
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      display: none;
+      z-index: 100000;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
-<body>
 
-    <video class="bg-video" autoplay muted loop playsinline>
-        <source src="Background.mp4" type="video/mp4" />
-        Your browser does not support HTML5 video.
-      </video>
-      
+<body class="index-page">
 
-  <div class="content">
-    <div class="title">Projects Coming Soon</div>
-    <div class="caption">
-      <strong>  404 Projects not found </strong><br><br>
-      They are probably just chilling in another tab I forgot to upload. 🤦‍♂️<br><br> 
-      But don’t worry — they’ll be here soon! <br><br>  my skills are very real, promise! 😅
+  <!-- =====================================================================
+       GLOBAL HEADER (MATCHING index.html)
+       ===================================================================== -->
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+      <a href="../index.html" class="logo d-flex align-items-center text-decoration-none">
+        <h1 class="sitename">PortFolio</h1>
+      </a>
     </div>
+  </header>
+
+  <!-- =====================================================================
+       IN-DEPTH DETAILS PROJECT DIRECTORY (GRID FORMAT)
+       ===================================================================== -->
+  <section class="projects-grid-section">
+    <div class="container">
+      <div class="row mb-1">
+        <div class="col-12">
+          <h2 class="grid-header-title">In-Depth Project Details</h2>
+          <p class="grid-header-desc">Click any project below to inspect its architecture, problem statement, technical
+            stack, and live deployments.</p>
+        </div>
+      </div>
+
+      <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-lg-4" id="projects-grid">
+        <!-- 1. Basic LMS -->
+        <div class="col">
+          <div class="project-card-item active" id="card-lms" onclick="selectProject('lms')">
+            <div>
+              <div class="card-top-row">
+                <i class="bi bi-mortarboard-fill card-icon"></i>
+                <span class="badge bg-success" style="font-size: 0.72rem;">Live Demo</span>
+              </div>
+              <h3 class="card-project-title">Basic LMS</h3>
+              <p class="card-project-sub">EdTech Platform • Lightweight & Offline-Ready</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Saka-irs -->
+        <div class="col">
+          <div class="project-card-item" id="card-sakairs" onclick="selectProject('sakairs')">
+            <div>
+              <div class="card-top-row">
+                <i class="bi bi-fingerprint card-icon"></i>
+                <span class="badge bg-primary" style="font-size: 0.72rem;">Forensics</span>
+              </div>
+              <h3 class="card-project-title">Saka-irs</h3>
+              <p class="card-project-sub">Perceptual Visual Search & Digital Forensics</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Vuln_Spot -->
+        <div class="col">
+          <div class="project-card-item" id="card-vulnspot" onclick="selectProject('vulnspot')">
+            <div>
+              <div class="card-top-row">
+                <i class="bi bi-shield-slash-fill card-icon"></i>
+                <span class="badge bg-warning text-dark" style="font-size: 0.72rem;">CTF Lab</span>
+              </div>
+              <h3 class="card-project-title">Vuln_Spot</h3>
+              <p class="card-project-sub">Offensive Security • Zeroverse CTF Lab</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Blogify -->
+        <div class="col">
+          <div class="project-card-item" id="card-blogify" onclick="selectProject('blogify')">
+            <div>
+              <div class="card-top-row">
+                <i class="bi bi-journal-code card-icon"></i>
+                <span class="badge bg-success" style="font-size: 0.72rem;">Platform</span>
+              </div>
+              <h3 class="card-project-title">Blogify</h3>
+              <p class="card-project-sub">Full-Stack Publishing & Content CMS</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       DETAILED VIEW SECTION (MATCHING css/main.css)
+       ===================================================================== -->
+  <section id="portfolio-details" class="portfolio-details section py-5">
+    <div class="container">
+      <div class="row gy-4">
+
+        <!-- Left / Main Column (Hero Screenshot, Narrative, Stack, Benchmarks) -->
+        <div class="col-lg-8">
+
+          <!-- Featured Screenshot Card -->
+          <div class="project-hero-card">
+            <img id="cs-featured-img" src="../images/Lms.png" alt="Project Screenshot" class="img-fluid"
+              onerror="this.src='../images/Security.avif'">
+          </div>
+
+          <!-- Instant Demo Credentials Strip (Active for LMS and CTF Lab) -->
+          <div class="demo-credentials-banner" id="cs-credentials-box">
+            <div class="demo-cred-info">
+              <span class="badge bg-primary me-2">DEMO ACCESS</span>
+              <span>Student Login: <strong id="cred-display-user">moses.kariuki.g7w</strong> | Password: <strong
+                  id="cred-display-pass">Mwanafunzi2026!</strong></span>
+            </div>
+            <button class="demo-cred-btn" onclick="copyLoginCredentials()">
+              <i class="bi bi-clipboard-check"></i> Copy Credentials
+            </button>
+          </div>
+
+          <!-- Detailed Project Narrative -->
+          <div class="portfolio-description">
+
+            <!-- 1. Problem Statement & Context -->
+            <h3 class="section-title-sub">Problem Statement & Context</h3>
+            <div id="cs-problem-statement">
+              <p>
+                High monthly software costs and heavy page loads prevent many underfunded schools from adopting digital
+                learning. Basic LMS was built as a lightweight, subscription-free alternative designed to run on modest
+                hardware and mobile devices without requiring expensive cloud infrastructure or technical staff.
+              </p>
+            </div>
+
+            <!-- 2. Role & Responsibilities -->
+            <h3 class="section-title-sub">System Capabilities</h3>
+            <ul class="responsibilities-list" id="cs-responsibilities-list">
+              <li><strong>Independent Instance Deployment:</strong> Deployed each school instance using available free
+                tiers across hosting and database providers, completely eliminating recurring software licensing costs.
+              </li>
+              <li><strong>Dual-Mode Connectivity (Online & Hotspot LAN):</strong> Engineered the application to run both
+                as a standard cloud web app and locally over a teacher-hosted Wi-Fi hotspot, allowing lessons to proceed
+                without internet.</li>
+              <li><strong>Offline Lesson Caching (PWA & IndexedDB):</strong> Integrated Service Worker caching and
+                browser IndexedDB so students can access and read lesson materials when disconnected.</li>
+              <li><strong>Offline Quiz Outbox & Background Sync:</strong> Built client-side quiz submission queueing
+                that stores responses offline and automatically synchronizes attempts once a connection is detected.
+              </li>
+              <li><strong>Live Classroom Whiteboard & Hotspot AirDrop:</strong> Implemented real-time interactive canvas
+                drawing and local zero-data file broadcasting via WebSockets.</li>
+              <li><strong>Subject & Lesson Hierarchy:</strong> Designed structured academic management (Classes,
+                Subjects, Topics, Lessons) supporting direct study PDF attachments via MongoDB GridFS.</li>
+              <li><strong>Email-Free Administration:</strong> Built in-app user and credential management so
+                administrators and teachers can reset student passwords directly without email dependencies.</li>
+            </ul>
+
+            <!-- 3. Technology Stack Used -->
+            <h3 class="section-title-sub">Technology Stack Used</h3>
+            <div class="stack-grid-container" id="cs-stack-container">
+              <div class="stack-box">
+                <div class="stack-box-title"><i class="bi bi-window"></i> Frontend Tier</div>
+                <div class="stack-pill-tags" id="stack-list-frontend">
+                  <span class="badge-stack-item">React 18</span>
+                  <span class="badge-stack-item">Tailwind CSS</span>
+                  <span class="badge-stack-item">Vite</span>
+                  <span class="badge-stack-item">PWA / Service Worker</span>
+                  <span class="badge-stack-item">IndexedDB Cache</span>
+                </div>
+              </div>
+
+              <div class="stack-box">
+                <div class="stack-box-title"><i class="bi bi-server"></i> Backend Services</div>
+                <div class="stack-pill-tags" id="stack-list-backend">
+                  <span class="badge-stack-item">Node.js</span>
+                  <span class="badge-stack-item">Express REST</span>
+                  <span class="badge-stack-item">WebSockets / Socket.io</span>
+                  <span class="badge-stack-item">Helmet.js</span>
+                </div>
+              </div>
+
+              <div class="stack-box">
+                <div class="stack-box-title"><i class="bi bi-database"></i> Database & Persistence</div>
+                <div class="stack-pill-tags" id="stack-list-db">
+                  <span class="badge-stack-item">MongoDB Atlas (Free Tier)</span>
+                  <span class="badge-stack-item">GridFS File Storage</span>
+                  <span class="badge-stack-item">Mongoose ODM</span>
+                </div>
+              </div>
+
+              <div class="stack-box">
+                <div class="stack-box-title"><i class="bi bi-cloud-check"></i> DevSecOps & Hosting</div>
+                <div class="stack-pill-tags" id="stack-list-devops">
+                  <span class="badge-stack-item">Vercel (Frontend)</span>
+                  <span class="badge-stack-item">Render (Backend)</span>
+                  <span class="badge-stack-item">Local Hotspot Mode</span>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <!-- Right Column: DevFolio Official .portfolio-info Sidebar Card -->
+        <div class="col-lg-4">
+          <div class="portfolio-info">
+            <h3 id="info-header-title">Project Information</h3>
+            <ul>
+              <li>
+                <strong>Category</strong>
+                <span id="info-category">EdTech / Web App</span>
+              </li>
+              <li>
+                <strong>Client / Context</strong>
+                <span id="info-context">Personal project for under privileged schools</span>
+              </li>
+              <li>
+                <strong>Role / Responsibility</strong>
+                <span id="info-role">Full-Stack Developer</span>
+              </li>
+              <li>
+                <strong>Project Date</strong>
+                <span id="info-date">2025 – 2026</span>
+              </li>
+              <li>
+                <strong>Deployment Status</strong>
+                <span id="info-status" class="badge bg-success" style="width:fit-content; font-size:0.8rem;">Production
+                  Live</span>
+              </li>
+              <li>
+                <strong>Core Tech Stack</strong>
+                <span id="info-tech-summary">React 18, Node.js, Express, MongoDB Atlas & GridFS, WebSockets, Service
+                  Worker</span>
+              </li>
+              <li>
+                <strong>Live Project Demo</strong>
+                <a id="info-live-link" href="https://lms-phi-mauve.vercel.app/" target="_blank"
+                  rel="noopener noreferrer" class="btn-visit align-self-start mt-2">
+                  <i class="bi bi-box-arrow-up-right me-1"></i> Visit Live Site
+                </a>
+              </li>
+              <li>
+                <strong>Source Repository</strong>
+                <a id="info-gh-link" href="https://github.com/I-Nass" target="_blank" rel="noopener noreferrer"
+                  style="color:var(--accent-color); font-weight:600;">
+                  <i class="bi bi-github me-1"></i> View on GitHub
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Back to Portfolio Action -->
+          <div class="mt-4 text-center">
+            <a href="../index.html#portfolio" class="btn btn-outline-secondary w-100 py-2 rounded-pill">
+              <i class="bi bi-arrow-left me-1"></i> Return to Main Portfolio
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       GLOBAL FOOTER (MATCHING index.html)
+       ===================================================================== -->
+  <footer id="footer" class="footer accent-background py-4 mt-5" style="background-color: #0d1117; color: #ffffff;">
+    <div class="container text-center">
+      <div class="copyright mb-2">
+        <p class="mb-0">
+          © <span>2026</span>
+          <strong class="px-1 sitename">Ian Nassiuma</strong>
+          <span>All Rights Reserved</span>
+        </p>
+      </div>
+      <div class="social-links d-flex justify-content-center">
+        <a href="https://github.com/I-Nass" target="_blank" rel="noopener noreferrer" class="text-white mx-2 fs-5"><i
+            class="bi bi-github"></i></a>
+        <a href="https://www.linkedin.com/in/ian-nassiuma-3189a5359/" target="_blank" rel="noopener noreferrer"
+          class="text-white mx-2 fs-5"><i class="bi bi-linkedin"></i></a>
+        <a href="https://wa.me/254793688832" target="_blank" rel="noopener noreferrer" class="text-white mx-2 fs-5"><i
+            class="bi bi-whatsapp"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Bubble -->
+  <div id="copy-toast-bubble">
+    <i class="bi bi-check2-circle me-1" style="color:#10b981;"></i> Demo credentials copied to clipboard!
   </div>
 
+  <!-- =====================================================================
+       IN-DEPTH DETAILS CONTROLLER JAVASCRIPT
+       ===================================================================== -->
+  <script>
+    // Project Dataset matching index.html portfolio items
+    const caseStudies = {
+      lms: {
+        title: "Basic LMS — Learning Management Portal",
+        category: "EdTech / Web App",
+        context: "Personal project for under privileged schools",
+        role: "Full-Stack Developer",
+        date: "2025 – 2026",
+        statusBadge: "Production Live",
+        statusClass: "bg-success",
+        techSummary: "React 18, Node.js, Express, MongoDB Atlas & GridFS, WebSockets, Service Worker",
+        liveUrl: "https://lms-phi-mauve.vercel.app/",
+        ghUrl: "https://github.com/I-Nass",
+        imgSrc: "../images/Lms.png",
+        hasCreds: true,
+        credUser: "moses.kariuki.g7w",
+        credPass: "Mwanafunzi2026!",
+        problemStatement: `
+          <p>High monthly software costs and heavy page loads prevent many underfunded schools from adopting digital learning. Basic LMS was built as a lightweight, subscription-free alternative designed to run on modest hardware and mobile devices without requiring expensive cloud infrastructure or technical staff.</p>
+        `,
+        responsibilities: [
+          "<strong>Independent Instance Deployment:</strong> Deployed each school instance using available free tiers across hosting and database providers, completely eliminating recurring software licensing costs.",
+          "<strong>Dual-Mode Connectivity (Online & Hotspot LAN):</strong> Engineered the application to run both as a standard cloud web app and locally over a teacher-hosted Wi-Fi hotspot, allowing lessons to proceed without internet.",
+          "<strong>Offline Lesson Caching (PWA & IndexedDB):</strong> Integrated Service Worker caching and browser IndexedDB so students can access and read lesson materials when disconnected.",
+          "<strong>Offline Quiz Outbox & Background Sync:</strong> Built client-side quiz submission queueing that stores responses offline and automatically synchronizes attempts once a connection is detected.",
+          "<strong>Live Classroom Whiteboard & Hotspot AirDrop:</strong> Implemented real-time interactive canvas drawing and local zero-data file broadcasting via WebSockets.",
+          "<strong>Subject & Lesson Hierarchy:</strong> Designed structured academic management (Classes, Subjects, Topics, Lessons) supporting direct study PDF attachments via MongoDB GridFS.",
+          "<strong>Email-Free Administration:</strong> Built in-app user and credential management so administrators and teachers can reset student passwords directly without email dependencies."
+        ],
+        stack: {
+          frontend: ["React 18", "Tailwind CSS", "Vite", "PWA / Service Worker", "IndexedDB Cache"],
+          backend: ["Node.js", "Express REST", "WebSockets / Socket.io", "Helmet.js"],
+          db: ["MongoDB Atlas (Free Tier)", "GridFS File Storage", "Mongoose ODM"],
+          devops: ["Vercel (Frontend)", "Render (Backend)", "Local Hotspot Mode"]
+        }
+      },
+
+      sakairs: {
+        title: "Saka-irs — Perceptual Image Search & Forensics Suite",
+        category: "Cybersecurity / Image Forensics",
+        context: "Personal project / Security & media verification tool",
+        role: "Full-Stack Developer",
+        date: "2025 – 2026",
+        statusBadge: "Open Source",
+        statusClass: "bg-primary",
+        techSummary: "Node.js, Express, Sharp, Exifr, MongoDB, Vanilla JS, EJS",
+        liveUrl: "https://github.com/I-Nass/Saka-irs",
+        ghUrl: "https://github.com/I-Nass/Saka-irs",
+        imgSrc: "../images/saka-irs.png",
+        hasCreds: false,
+        problemStatement: `
+          <p>Standard cryptographic hashes (like SHA-256) change drastically when a single pixel or metadata byte is modified, making them useless for matching resized, recompressed, or subtly altered images. Furthermore, uploading unvetted media directly to cloud reverse-search platforms leaks sensitive camera metadata and GPS coordinates.</p>
+          <p>Saka-irs was built as a lightweight, self-hosted web tool that computes visual perceptual fingerprints locally, inspects digital image tampering, and enables privacy-safe reverse pivots without recurring API costs.</p>
+        `,
+        responsibilities: [
+          "<strong>Perceptual Fingerprint Pipeline:</strong> Implemented in-house 64-bit DCT-II (pHash), horizontal gradient (dHash), and block average (aHash) algorithms in plain JavaScript to detect identical, resized, or reformatted media.",
+          "<strong>Hamming Distance Match Engine:</strong> Built a MongoDB similarity lookup engine classifying matches into Exact Duplicate, Near Duplicate, and Visually Similar with confidence scoring.",
+          "<strong>Offline Tamper Inspection (ELA):</strong> Developed an offline Error Level Analysis (ELA) engine using Sharp to highlight localized JPEG compression inconsistencies from photo manipulation or splicing.",
+          "<strong>Sensor Noise & Lighting Analysis:</strong> Built high-pass filtering to isolate camera sensor grain (PRNU) for spotting airbrushed patches, alongside 2D Sobel edge gradients to identify conflicting illumination angles.",
+          "<strong>Interactive A/B Forensics Slider:</strong> Created an interactive comparison canvas in vanilla JavaScript allowing side-by-side split inspection of forensic heatmaps against source images.",
+          "<strong>Zero-Leak Reverse Pivots:</strong> Designed an export pipeline that strips EXIF, GPS, and color profiles to a clean PNG, letting users pivot to Google Lens, Yandex, or TinEye directly from their browser session without API subscription fees.",
+          "<strong>Storage Lifecycle & Hardening:</strong> Enforced decompression bomb limits (~50MP), magic-byte validation, MongoDB TTL auto-expiration, and a scheduled background file sweeper."
+        ],
+        stack: {
+          frontend: ["Vanilla JavaScript (ES6+)", "EJS Templates", "CSS3 Grid / Flexbox", "A/B Split Slider"],
+          backend: ["Node.js (≥18)", "Express.js", "Sharp (Image Processing)", "Exifr (Metadata)", "Multer", "Helmet"],
+          db: ["MongoDB (Mongoose)", "Hamming Distance Queries", "TTL Auto-Expiry"],
+          devops: ["Local Host / Docker", "Node Test Runner"]
+        }
+      },
+
+      vulnspot: {
+        title: "Vuln_Spot — Interactive Web Exploitation & CTF Lab",
+        category: "Offensive Security / Web Lab",
+        context: "Zeroverse (Cybersecurity Group CTF Challenge)",
+        role: "CTF Challenge Author & Full-Stack Developer",
+        date: "2025",
+        statusBadge: "Active CTF Lab",
+        statusClass: "bg-warning text-dark",
+        techSummary: "Node.js (Express 5), EJS, MongoDB, Express-Session, Node-Cron",
+        liveUrl: "https://github.com/I-Nass/Web_exploit-Basic-",
+        ghUrl: "https://github.com/I-Nass/Web_exploit-Basic-",
+        imgSrc: "../images/Vulnspot.png",
+        hasCreds: false,
+        problemStatement: `
+          <p>Learning web application security solely through abstract theory makes it difficult to understand how real-world authorization flaws and logic bugs occur in production code. Vuln_Spot was built as a functional social web application embedded with intentional, chained web vulnerabilities—providing a safe, realistic capture-the-flag (CTF) environment for practicing web reconnaissance, privilege escalation, and exploit remediation.</p>
+        `,
+        responsibilities: [
+          "<strong>Chained 3-Fragment Flag Game:</strong> Designed a multi-stage exploit chain connecting client-side User-Agent header spoofing, sequential IDOR parameter enumeration, and XOR artifact extraction.",
+          "<strong>Realistic Social Architecture:</strong> Built a fully functioning social interface with posts, comments, direct messaging with unread badges, and friend requests to simulate an authentic attack surface.",
+          "<strong>Insecure Direct Object References (IDOR):</strong> Implemented an authorization-free message permalink route (/m/:mid) demonstrating sequential data harvesting risks.",
+          "<strong>Path Traversal & Filter Bypass:</strong> Crafted an intentionally flawed file exporter demonstrating how single-pass string replacement (../) can be circumvented via nested sequences (....//).",
+          "<strong>Concurrency & Race Testing:</strong> Developed automated concurrency test harnesses (test/concurrency.mjs) probing parallel request races and resolving database key collision errors via atomic counters."
+        ],
+        stack: {
+          frontend: ["EJS Templates", "Vanilla JavaScript", "CSS3"],
+          backend: ["Node.js (≥18)", "Express 5", "Express-Session", "Node-Cron"],
+          db: ["MongoDB (Mongoose)", "Atomic Upserts & Counters"],
+          devops: ["Local Environment", "Git", "Database Seed Scripts"]
+        }
+      },
+
+      blogify: {
+        title: "Blogify — Personal Blog & Content System",
+        category: "Web Application / Full-Stack",
+        context: "Personal learning project (Foundational Full-Stack App)",
+        role: "Full-Stack Developer",
+        date: "2024",
+        statusBadge: "Completed",
+        statusClass: "bg-success",
+        techSummary: "Node.js, Express, MongoDB (Mongoose), EJS, Bcrypt, Sessions",
+        liveUrl: "https://github.com/I-Nass/Blogify",
+        ghUrl: "https://github.com/I-Nass/Blogify",
+        imgSrc: "../images/Blog1.jpg",
+        hasCreds: false,
+        problemStatement: `
+          <p>Built as a foundational hands-on project to master the core principles of full-stack web development with Node.js, Express, and MongoDB. The objective was to build a complete, self-contained blogging application from scratch—implementing server-side routing, database relationships, session-based authentication, and dynamic page rendering without relying on third-party CMS frameworks.</p>
+        `,
+        responsibilities: [
+          "<strong>Full CRUD & Admin Dashboard:</strong> Built a protected /admin panel allowing the author to create, preview, edit, and delete articles with a draft/published workflow.",
+          "<strong>Session Authentication:</strong> Implemented secure admin login using bcryptjs password hashing and cookie-based sessions to protect content management routes.",
+          "<strong>Automated URL Slugs:</strong> Created a Mongoose pre-save hook that converts post titles into clean, readable URL slugs (/read/post-title) with automatic conflict handling for duplicate titles.",
+          "<strong>Tagging & Category Filters:</strong> Organized the database schema to support article categories and an interactive tag cloud with post counts.",
+          "<strong>Keyword Search:</strong> Built a search route that queries across titles, summaries, and body text using injection-safe regular expressions.",
+          "<strong>Dual Page & API Delivery:</strong> Server-rendered public reading views using EJS templates while exposing a clean JSON REST API (/api/posts) for programmatic data retrieval."
+        ],
+        stack: {
+          frontend: ["EJS Templates", "Vanilla JavaScript", "CSS3 Responsive"],
+          backend: ["Node.js", "Express", "Bcryptjs", "Express-Session", "Helmet"],
+          db: ["MongoDB (Mongoose)", "Schema Lifecycle Hooks"],
+          devops: ["Local / Cloud Hosting", "Gzip Compression", "Morgan Logging"]
+        }
+      }
+    };
+
+    // Select and load a project into the page
+    function selectProject(key, updateUrl = true) {
+      const p = caseStudies[key];
+      if (!p) return;
+
+      // Update URL query parameter without full page reload
+      if (updateUrl && window.history.pushState) {
+        const newUrl = window.location.pathname + '?project=' + encodeURIComponent(key);
+        window.history.pushState({ project: key }, '', newUrl);
+      }
+
+      // Update Grid Card Active States
+      document.querySelectorAll('.project-card-item').forEach(card => card.classList.remove('active'));
+      const activeCard = document.getElementById(`card-${key}`);
+      if (activeCard) activeCard.classList.add('active');
+
+      // Update Image with smooth transition
+      const img = document.getElementById('cs-featured-img');
+      img.style.opacity = '0.3';
+      setTimeout(() => {
+        img.src = p.imgSrc;
+        img.style.opacity = '1';
+      }, 150);
+
+      // Credentials Box
+      const credBox = document.getElementById('cs-credentials-box');
+      if (p.hasCreds) {
+        credBox.style.display = 'flex';
+        document.getElementById('cred-display-user').textContent = p.credUser;
+        document.getElementById('cred-display-pass').textContent = p.credPass;
+      } else {
+        credBox.style.display = 'none';
+      }
+
+      // Narrative: Problem Statement & Responsibilities
+      document.getElementById('cs-problem-statement').innerHTML = p.problemStatement;
+      document.getElementById('cs-responsibilities-list').innerHTML = p.responsibilities.map(r => `<li>${r}</li>`).join('');
+
+      // Tech Stack Boxes
+      document.getElementById('stack-list-frontend').innerHTML = p.stack.frontend.map(t => `<span class="badge-stack-item">${t}</span>`).join('');
+      document.getElementById('stack-list-backend').innerHTML = p.stack.backend.map(t => `<span class="badge-stack-item">${t}</span>`).join('');
+      document.getElementById('stack-list-db').innerHTML = p.stack.db.map(t => `<span class="badge-stack-item">${t}</span>`).join('');
+      document.getElementById('stack-list-devops').innerHTML = p.stack.devops.map(t => `<span class="badge-stack-item">${t}</span>`).join('');
+
+
+
+      // Right Sidebar Info Card
+      document.getElementById('info-header-title').textContent = p.title;
+      document.getElementById('info-category').textContent = p.category;
+      document.getElementById('info-context').textContent = p.context;
+      document.getElementById('info-role').textContent = p.role;
+      document.getElementById('info-date').textContent = p.date;
+
+      const statusEl = document.getElementById('info-status');
+      statusEl.textContent = p.statusBadge;
+      statusEl.className = `badge ${p.statusClass}`;
+
+      document.getElementById('info-tech-summary').textContent = p.techSummary;
+      document.getElementById('info-live-link').href = p.liveUrl;
+      document.getElementById('info-gh-link').href = p.ghUrl;
+    }
+
+    // Copy Login Credentials
+    function copyLoginCredentials() {
+      const user = document.getElementById('cred-display-user').textContent;
+      const pass = document.getElementById('cred-display-pass').textContent;
+      const text = `Username: ${user}\nPassword: ${pass}`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('copy-toast-bubble');
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 2800);
+      });
+    }
+
+    // Initialize based on URL Query Parameter (e.g. ?project=sakairs)
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const projParam = urlParams.get('project');
+      if (projParam && caseStudies[projParam]) {
+        selectProject(projParam, false);
+      } else {
+        selectProject('lms', false);
+      }
+    });
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.project && caseStudies[e.state.project]) {
+        selectProject(e.state.project, false);
+      } else {
+        const urlParams = new URLSearchParams(window.location.search);
+        const projParam = urlParams.get('project');
+        if (projParam && caseStudies[projParam]) {
+          selectProject(projParam, false);
+        } else {
+          selectProject('lms', false);
+        }
+      }
+    });
+  </script>
+
 </body>
+
 </html>

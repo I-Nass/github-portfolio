@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects Coming Soon // 404</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="../css/bootstrap-icons.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body,
+    html {
+      min-height: 100vh;
+      width: 100%;
+      color: #00fff7;
+      font-family: 'Orbitron', sans-serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Video element at full opacity with no dark overlay */
+    video.bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 1;
+    }
+
+    /* Center 404 Box */
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 620px;
+      width: 90%;
+      padding: clamp(1.75rem, 5vw, 2.5rem);
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid #ff00c8;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255, 0, 200, 0.45);
+      margin: 2rem auto;
+    }
+
+    .title {
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 0.6em;
+      color: #ff00c8;
+      line-height: 1.2;
+      text-shadow: 0 0 10px rgba(255, 0, 200, 0.5);
+    }
+
+    .caption {
+      font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+      line-height: 1.6em;
+      color: #00fff7;
+      margin-bottom: 1.8rem;
+    }
+
+    .caption strong {
+      color: #00fff7;
+      font-size: 1.1em;
+    }
+
+    /* Return to Portfolio Action Button */
+    .action-row {
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-return {
+      background: #0078ff;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.75rem 1.85rem;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(0, 120, 255, 0.4);
+      transition: all 0.25s ease;
+      min-height: 48px;
+      touch-action: manipulation;
+      border: none;
+    }
+
+    .btn-return:hover {
+      background: #005cdb;
+      box-shadow: 0 6px 20px rgba(0, 120, 255, 0.6);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Fullscreen Video Background with Mobile Poster Fallback (No dark overlay) -->
+  <video class="bg-video" autoplay muted loop playsinline poster="background-img.jpg">
+    <source src="Background.mp4" type="video/mp4" />
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Centered Content -->
+  <main class="content">
+    <div class="title">Projects Coming Soon</div>
+    <div class="caption">
+      <strong>404 Projects not found</strong><br><br>
+      They are probably just chilling in another tab I forgot to upload. 🤦‍♂️<br><br>
+      But don’t worry — they’ll be here soon!<br><br>
+      My skills are very real, promise! 😅
+    </div>
+
+    <div class="action-row">
+      <a href="../index.html#portfolio" class="btn-return">
+        <i class="bi bi-arrow-left-circle-fill"></i>
+        <span>Return to Portfolio</span>
+      </a>
+    </div>
+  </main>
+
+</body>
+
+</html>
